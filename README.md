@@ -13,6 +13,16 @@
 ### Bài 2: Setup môi trường code trên máy tính Window
 1. Cài đặt Visual Studio Code
 - Download: https://code.visualstudio.com/download
-2. Truy cập docs React Native
-- Link truy cập: https://reactnative.dev/docs
+2. Cài đặt Node JS
+- Download: https://nodejs.org/en/download/current
+3. Cài đặt Git
+- Download: https://www.git-scm.com/downloads
+4. Khởi tạo dự án React Native
+- Chạy câu lệnh khởi tạo dự án: npx create-expo-app DemoReactNative
+- Chạy dự án trên web: npx expo start
+5. Cài đặt android studio
+- Download: https://developer.android.com/studio
+
+### Bài 3: Components
+
 
