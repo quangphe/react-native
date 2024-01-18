@@ -1,5 +1,5 @@
 # React Native
-### Bài 1: Công cụ lập trình di động React Native
+### I. Công cụ lập trình di động React Native
 
 1. Code trực tiếp trên browser
 - Truy cập vào https://snack.expo.dev
@@ -13,7 +13,7 @@
 
 3. Sử dụng máy thật
 
-### Bài 2: Setup môi trường code trên máy tính Window
+### II.  Setup môi trường code trên máy tính Window
 
 1. Cài đặt Visual Studio Code
 - Download: https://code.visualstudio.com/download
@@ -24,7 +24,7 @@
 3. Cài đặt Git
 - Download: https://www.git-scm.com/downloads
 
-### Bài 3: Khởi tạo dự án React Native
+### III. Khởi tạo dự án React Native
 
 1. Cài đặt ứng dụng React Native
 - Sau khi cài đặt thành công NodeJS và npm trong hệ thống, bạn có thể tiến hành cài đặt create-react-native-app: npm install -g DemoReactNative
@@ -35,7 +35,7 @@
 3. Chạy dự án 
 - Gõ câu lệnh: npm start
 
-### Bài 4: React Native - App
+### IV. React Native - App
 
 1. File App.js là nơi để hiển thị view ra màn hình
 
@@ -54,7 +54,7 @@
     }
   ```
 
-### Bài 5: React Native - State
+### V. React Native - State
 
 - State - là biến điều khiển trạng thái nội bộ của 1 component. State có thể thay đổi bằng cách gọi hàm this.setState({...}). Mỗi lần thay đổi state hàm render sẽ được gọi lại ngay sau đó (hàm render chỉ thay đổi những thành phần có liên quan đến những giá trị trong state bị thay đổi).
 - Chúng ta nên bỏ các biến có liên quan đến UI vào trong state này, để khi state thay đổi, UI màn hình sẽ được vẽ lại và thay đổi theo.
@@ -79,7 +79,7 @@
     }
   ``` 
 
-### Bài 6: React Native - Props
+### VI. React Native - Props
 
 - Props - là các thuộc tính được người dùng sử dụng truyền vào. Đây là các thông số được truyền vào để tùy chỉnh theo ý muốn của người xây dựng Component.
 - Khác với state chúng ta không được thay đổi props ở trong chính bản thân của nó. Chúng ta chỉ nên đọc các thuộc tính được truyền vào để sử dụng mà thôi.
@@ -116,9 +116,8 @@
     }
   ```
 
-### Bài 7: Một số hàm đặc biệt
+### VII. React Native - Hàm this.setState()
 
-1. Hàm this.setState()
 - Hàm dùng để thay đổi state của component. Đây là phương thức chính để cập nhật giao diện người dùng. Khi hàm này thực thi xong thì hàm render() sẽ được tự động gọi lại.
 - Những giá trị nào của state thay đổi thì chỉ những thành phần có sử dụng biến state tương ứng đó được gọi để vẽ lại UI.
 * Lưu ý: hàm này chạy bất đồng bộ nên chúng ta không nên đọc giá trị sau khi gọi hàm này.
@@ -147,7 +146,8 @@
     );
   ```
 
-2. Hàm this.forceUpdate()
+### VIII. React Native - Hàm this.forceUpdate()
+
 - Mặc định hàm render() sẽ được gọi khi props hoặc state thay đổi. Nhưng nếu một vài thành phần UI sử dụng một số dữ liệu khác state hoặc prop muốn thay đổi, thì chúng ta cần thông báo cho React biết để vẽ lại toàn bộ bằng cách gọi hàm forceUpdate().
 - Cách sử dụng: 
 
@@ -172,12 +172,12 @@
     export default App;
   ```
 
-3. Một vài lưu ý nhỏ khi dùng React Native
+* Một vài lưu ý nhỏ khi dùng React Native:
 - Trong state chỉ nên chứa dữ liệu, không nên chứa các View / Component vào trong state. Làm như vậy có thể gây double dữ liệu và việc quản lý UI trở nên phức tạp hơn và khó tùy biến sau này.
 - Dữ liệu trong prop thì không nên thay đổi.
 - Dữ liệu cần in ra màn hình và cần thay đổi lại UI khi nó thay đổi thì đặt vào state.
 
-### Bài 8: Các component thường sử dụng
+### IX. Các component thường sử dụng
 
 1. View trong React Native
 - Là một component cũng thường xuyên được sử dụng. Thường được sử dụng với mục đích chia các view con theo hàng dọc hoặc hàng ngang dựa vào thuộc tính flexDirection trong style là 'column/row' (dọc / ngang), hoặc sử dụng để chứa nhiều view con hoặc khi cần in ra màn hình một view không hiển thị gì hết
