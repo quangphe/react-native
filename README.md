@@ -287,3 +287,534 @@
 + Khi một thành phần data (ví dụ data[0] = ...) của bạn thay đổi thường thì không vẽ lại UI cho nên bạn sẽ cần thêm một thuộc tính là extraData={this.state}. Lúc này mỗi lần state thay đổi thì danh sách lại được vẽ lại
 + Có thể sử dụng Flatlist để làm như GridView trong android dựa vào thuộc tính numColumns={colum} (colum là số cột). Nhưng bạn sẽ cần phải tính toán width, height của mỗi colum để hiển thị đẹp nhất (Không có sẵn như fill_parent trong android).
 
+### X. React Native - Styling
+
+- Với React-Native hỗ trợ style cho tất cả các components . Nó đơn giản như bạn viết CSS cho Web.
+- Trong CSS sử dụng cho HTML chúng ta viết background-color thì sang React-Native chúng ta sử dụng backgroundColor
+- Có 3 kiểu khai báo styles:
+
+1. Khai báo trực tiếp trong Component
+
+  ```
+  import React, { Component } from 'react';
+    import {Text,View} from 'react-native';
+    class StylesInComponent extends Component {
+        render() {
+        return (
+            <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: 'red',
+              }}>
+            <Text style={{
+                    fontSize: 20,
+                    textAlign: 'center',
+                    margin: 10,
+                    color: 'white',
+            }}>
+              Welcome to React Native!
+              </Text>
+              </View>
+            );
+        }
+  }
+
+  ```
+
+2. Khai báo ngoài Component nhưng vẫn nằm trong một file. Đầu tiên bạn cần import thư viện StyleSheet. Tiếp theo bên ngoài Component bạn khai báo biến styles kiểu StyleSheet
+
+  ```
+    class StylesOutComponent extends Component {
+        render() {
+        return (
+              <View style={styles.container}>
+              <Text style={styles.welcome}>
+                  Welcome to React Native!
+              </Text>
+              </View>
+              );
+          }
+        }
+    });
+
+    const styles = StyleSheet.create({
+      container: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#F5FCFF',
+      },
+      welcome: {
+            fontSize: 20,
+            textAlign: 'center',
+            margin: 10,
+      },
+    });
+
+  ```
+
+3. Khai báo vào file riêng
+
+- Tạo file có tên Styles.js với nội dung như sau:
+
+  ```
+    import { StyleSheet,} from 'react-native';
+    const styles = StyleSheet.create({
+          container: {
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#F5FCFF',
+          },
+          welcome: {
+              fontSize: 20,
+              textAlign: 'center',
+              margin: 10,
+          }
+    });
+    export default styles;
+  ```
+
+- Đầu tiên bạn cần import thư viện StyleSheet. Tương tự bạn tạo cái selector CSS : container, welcome cho biến styles. Quan trọng nhất là bạn phải thêm dòng export default styles; vào cuối file. Khi bạn đã export thì có nghĩa là bạn có thể import styles ở bất kì đâu để sử dụng. Sử dụng câu lệnh import styles from './Styles' . Trong đó './Styles' là đường dẫn của tới Styles.js
+
+  ```
+    import styles from './Styles'
+      class StylesNewFile extends Component {
+            render() {
+            return (
+                    <View style={styles.container}>
+                    <Text style={styles.welcome}>
+                          Welcome to React Native!
+                    </Text>
+                    </View>
+                  );
+              }
+      }
+
+  ```
+
+### XI. React Native - Flexbox
+
+1. flexDirection
+
+- flexDirection có hai giá trị 'row' và 'column'. Giá trị mặc định là 'column'. Nếu giá trị là 'row' đều đó có nghĩa là hướng trục chính(main axis direction) theo kiểu 'row', các view sẽ được sắp xếp theo chiều ngang. Ngược lại, nếu giá trị là 'column' các view sẽ được sắp xếp theo chiều dọc của component.
+
+- Cách sử dụng:
+
+  ```   
+    import React, { Component } from 'react';
+    import { View } from 'react-native';
+
+    export default class Example extends Component {
+      render() {
+        return (
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ height: 50, width: 50, backgroundColor: 'red' }} />
+            <View style={{ height: 50, width: 50, backgroundColor: 'blue' }} />
+            <View style={{ height: 50, width: 50, backgroundColor: 'green' }} />
+            <View style={{ height: 50, width: 50, backgroundColor: 'black' }} />
+          </View>
+        );
+      }
+    }
+
+  ```
+
+2. justifyContent
+
+- Sau khi tạo trục chính là 'row', sau đó thuộc tính justifyContent căn chỉnh các view. Bằng cách sử dụng 'flex-start', 'flex-end', 'center', chúng ta có thể sắp xếp các view theo trong hàng và bằng cách sử dụng 'space-around' và 'space-between' chúng ta có thể tạo khoảng trống giữa các view.
+
+- Ví dụ:
+  ```
+    import React, { Component } from 'react';
+    import { View } from 'react-native';
+
+    export default class Example extends Component {
+      render() {
+        return (
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <View style={{ height: 50, width: 50, backgroundColor: 'red' }} />
+            <View style={{ height: 50, width: 50, backgroundColor: 'black' }} />
+            <View style={{ height: 50, width: 50, backgroundColor: 'green' }} />
+            <View style={{ height: 50, width: 50, backgroundColor: 'blue' }} />
+          </View>
+        );
+      }
+    }
+
+  ```
+
+3. alignItems
+
+- Ở đây, hướng trục chính(main axis direction) là 'row'(Horizontal), do đó thuộc tính alignItems sẽ sắp xếp các view với hướng ngược lại của trục chính (Vertical).
+
+- Ví dụ:
+
+  ```
+  import React, { Component } from 'react';
+  import { View } from 'react-native';
+
+  export default class Example extends Component {
+    render() {
+      return (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ height: 50, width: 50, backgroundColor: 'red' }} />
+          <View style={{ height: 50, width: 50, backgroundColor: 'black' }} />
+          <View style={{ height: 50, width: 50, backgroundColor: 'green' }} />
+          <View style={{ height: 50, width: 50, backgroundColor: 'blue' }} />
+        </View>
+      );
+    }
+  }
+
+  ```
+
+4. flex
+
+- Một thuộc tính khác của flexbox là flex và nó là một giá trị số. Giả sử subview là một view có giá trị flex 1 và trong subview nếu chúng ta muốn cung cấp 20% không gian cho view thứ nhất, 20% không gian cho view thứ 2 và 60% cho view.
+
+- Ví dụ: 
+
+  ```
+  import React, { Component } from 'react';
+  import { View } from 'react-native';
+
+  export default class Example extends Component {
+    render() {
+      return (
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 0.2, backgroundColor: 'red' }} />
+          <View style={{ flex: 0.2, backgroundColor: 'black' }} />
+          <View style={{ flex: 0.3, backgroundColor: 'green' }} />
+          <View style={{ flex: 0.3, backgroundColor: 'blue' }} />
+        </View>
+      );
+    }
+  }
+
+  ```
+
+5. flexWrap
+
+- Nó sẽ hoạt động như flex-wrap trong CSS. Ví dụ: nếu có rất nhiều view và không sử dụng thuộc tính flexWrap: 'wrap'. Thì tất cả các view sẽ hiển thị trong subview nhưng chúng ta sẽ chỉ thấy số lượng view được fit trên màn hình, không phải tất cả các view đều hiển thị.
+
+- Ví dụ: 
+
+  ```
+    import React, { Component } from 'react';
+    import { View, StyleSheet } from 'react-native';
+
+    export default class Example extends Component {
+      render() {
+        return (
+          <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+            <View style={styles.boxStyle} />
+          </View>
+        );
+      }
+    }
+
+    const styles = StyleSheet.create({
+      boxStyle: {
+        height: 100, 
+        width: 50, 
+        borderWidth: 1, 
+        backgroundColor: 'orange', 
+        marginBottom: 5
+      },
+    });
+
+  ```
+
+### XII. React Native - ListView 
+
+- Để tạo một danh sách, chúng ta sẽ sử dụng phương thức map() . Điều này sẽ lặp qua một mảng các mục và hiển thị từng mục.
+
+- Cách sử dụng:
+
+  ```
+    ##### List.js
+
+    import React, { Component } from 'react'
+    import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+      
+    class List extends Component {
+      state = {
+          names: [
+            {
+                id: 0,
+                name: 'Ben',
+            },
+            {
+                id: 1,
+                name: 'Susan',
+            },
+            {
+                id: 2,
+                name: 'Robert',
+            },
+            {
+                id: 3,
+                name: 'Mary',
+            }
+          ]
+      }
+      alertItemName = (item) => {
+          alert(item.name)
+      }
+      render() {
+          return (
+            <View>
+                {
+                  this.state.names.map((item, index) => (
+                      <TouchableOpacity
+                        key = {item.id}
+                        style = {styles.container}
+                        onPress = {() => this.alertItemName(item)}>
+                        <Text style = {styles.text}>
+                            {item.name}
+                        </Text>
+                      </TouchableOpacity>
+                  ))
+                }
+            </View>
+          )
+      }
+    }
+    export default List
+
+    const styles = StyleSheet.create ({
+      container: {
+          padding: 10,
+          marginTop: 3,
+          backgroundColor: '#d9f9b1',
+          alignItems: 'center',
+      },
+      text: {
+          color: '#4f603c'
+      }
+    })
+
+  ```
+
+  ```
+    ##### App.js
+
+    import React from 'react'
+    import List from './List.js'
+
+    const App = () => {
+      return (
+          <List />
+      )
+    }
+    export default App
+
+  ```
+
+### XIII. React Native - Text Input
+
+- TextInput là một thành phần cơ bản cho phép người dùng có thể nhập text. Nó có một tham số onChangeText dành cho việc cài đặt một function được gọi mỗi khi nội dung text trong khung nhập thay đổi, và một tham số onSubmitEditing để cài đặt function được gọi khi text được submit.
+
+- Cách sử dụng: 
+
+  ```
+    import React, { Component } from 'react'
+    import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+
+    class Inputs extends Component {
+      state = {
+          email: '',
+          password: ''
+      }
+      handleEmail = (text) => {
+          this.setState({ email: text })
+      }
+      handlePassword = (text) => {
+          this.setState({ password: text })
+      }
+      login = (email, pass) => {
+          alert('email: ' + email + ' password: ' + pass)
+      }
+      render() {
+          return (
+            <View style = {styles.container}>
+                <TextInput style = {styles.input}
+                  underlineColorAndroid = "transparent"
+                  placeholder = "Email"
+                  placeholderTextColor = "#9a73ef"
+                  autoCapitalize = "none"
+                  onChangeText = {this.handleEmail}/>
+                
+                <TextInput style = {styles.input}
+                  underlineColorAndroid = "transparent"
+                  placeholder = "Password"
+                  placeholderTextColor = "#9a73ef"
+                  autoCapitalize = "none"
+                  onChangeText = {this.handlePassword}/>
+                
+                <TouchableOpacity
+                  style = {styles.submitButton}
+                  onPress = {
+                      () => this.login(this.state.email, this.state.password)
+                  }>
+                  <Text style = {styles.submitButtonText}> Submit </Text>
+                </TouchableOpacity>
+            </View>
+          )
+      }
+    }
+    export default Inputs
+
+  ```
+
+### XIV. React Native - ScrollView
+
+- ScrollView là một thành phần giao diện cha, nó có thể chứa được nhiều những thành phần khác bên trong nó, và nó có khả năng scroll các thành phần ở bên trong nó. Các thành phần có thể scroll cần phải đồng nhất, và bạn có thể scroll dọc hoặc ngang bằng cách cài đặt cho thuộc tính horizontal.
+
+- Cách sử dụng:
+
+  ```
+    import React, { Component } from 'react';
+    import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
+
+    class ScrollViewExample extends Component {
+      state = {
+          names: [
+            {'name': 'Ben', 'id': 1},
+            {'name': 'Susan', 'id': 2},
+            {'name': 'Robert', 'id': 3},
+            {'name': 'Mary', 'id': 4},
+            {'name': 'Daniel', 'id': 5},
+            {'name': 'Laura', 'id': 6},
+            {'name': 'John', 'id': 7},
+            {'name': 'Debra', 'id': 8},
+            {'name': 'Aron', 'id': 9},
+            {'name': 'Ann', 'id': 10},
+            {'name': 'Steve', 'id': 11},
+            {'name': 'Olivia', 'id': 12}
+          ]
+      }
+      render() {
+          return (
+            <View>
+                <ScrollView>
+                  {
+                      this.state.names.map((item, index) => (
+                        <View key = {item.id} style = {styles.item}>
+                            <Text>{item.name}</Text>
+                        </View>
+                      ))
+                  }
+                </ScrollView>
+            </View>
+          )
+      }
+    }
+    export default ScrollViewExample
+
+  ```
+
+### XV. React Native - Router
+
+1. Cài đặt Router
+
+- Chạy câu lệnh : npm i react-native-router-flux --save
+
+2. Import Routes vào App.js
+
+  ```
+    import React, { Component } from 'react';
+    import { AppRegistry, View } from 'react-native';
+    import Routes from './Routes.js'
+
+    class reactTutorialApp extends Component {
+      render() {
+          return (
+            <Routes />
+          )
+      }
+    }
+    export default reactTutorialApp
+    AppRegistry.registerComponent('reactTutorialApp', () => reactTutorialApp)
+
+  ```
+
+3. Tạo file Routes.js
+
+  ```
+    import React from 'react'
+    import { Router, Scene } from 'react-native-router-flux'
+    import Home from './Home.js'
+    import About from './About.js'
+
+    const Routes = () => (
+      <Router>
+          <Scene key = "root">
+            <Scene key = "home" component = {Home} title = "Home" initial = {true} />
+            <Scene key = "about" component = {About} title = "About" />
+          </Scene>
+      </Router>
+    )
+    export default Routes
+
+  ```
+
+4. Tạo components
+
+  ```
+    ##### Home.js
+
+    import React from 'react'
+    import { TouchableOpacity, Text } from 'react-native';
+    import { Actions } from 'react-native-router-flux';
+
+    const Home = () => {
+      const goToAbout = () => {
+          Actions.about()
+      }
+      return (
+          <TouchableOpacity style = {{ margin: 128 }} onPress = {goToAbout}>
+            <Text>This is HOME!</Text>
+          </TouchableOpacity>
+      )
+    }
+    export default Home
+
+  ```
+
+  ```
+    ##### About.js
+
+    import React from 'react'
+    import { TouchableOpacity, Text } from 'react-native'
+    import { Actions } from 'react-native-router-flux'
+
+    const About = () => {
+      const goToHome = () => {
+          Actions.home()
+      }
+      return (
+          <TouchableOpacity style = {{ margin: 128 }} onPress = {goToHome}>
+            <Text>This is ABOUT</Text>
+          </TouchableOpacity>
+      )
+    }
+    export default About
+
+  ```
+
+
+
